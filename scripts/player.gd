@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 var movement_speed = 100
+var hp = 10
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
@@ -40,3 +41,8 @@ func play_animations(pos_x, pos_y):
 	elif pos_x < 0:
 		animated_sprite.flip_h = true
 		animated_sprite.play("walk_right")
+
+
+func _on_hurtbox_hurt(damage: Variant) -> void:
+	hp -= damage
+	print(hp)
