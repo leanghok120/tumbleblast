@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqut2arrkb03v"]
+[gd_scene load_steps=7 format=3 uid="uid://dqut2arrkb03v"]
 
 [ext_resource type="Texture2D" uid="uid://b2prpk7ev6dfe" path="res://assets/Atlas.png" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://du18vpxuwrx4r" path="res://scenes/player.tscn" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://cggglq6tmhasr" path="res://scenes/enemy_spawner.tscn" id="3_4wyf3"]
+[ext_resource type="Script" uid="uid://duupl7op1uxwd" path="res://scripts/health_bar.gd" id="4_k0juu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uwrxv"]
 texture = ExtResource("1_rwgxs")
@@ -1082,6 +1083,7 @@ texture = ExtResource("1_rwgxs")
 2:23/0 = 0
 10:22/size_in_atlas = Vector2i(3, 3)
 10:22/0 = 0
+10:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(0.955894, -4.46083, 7.32851, -13.3825, 16.2502, -2.86768, 8, 8, 1.27452, 17.5247, -12.4266, 21.6669, -16.5688, 11.1521, -12.108, 3.82357, -18.162, -7.00988, -14.3384, -12.108, -11.7893, -3.50494, -2.54905, -2.23042)
 2:27/0 = 0
 3:27/0 = 0
 4:27/0 = 0
@@ -1125,7 +1127,23 @@ position = Vector2(996, 512)
 zoom = Vector2(2, 2)
 
 [node name="Player" parent="." instance=ExtResource("2_4wyf3")]
+unique_name_in_owner = true
 position = Vector2(996, 506)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(709, 351)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -195.0
+offset_top = 11.0
+offset_right = -17.0
+offset_bottom = 38.0
+grow_horizontal = 0
+max_value = 10.0
+script = ExtResource("4_k0juu")
+
+[connection signal="hp_changed" from="Player" to="CanvasLayer/ProgressBar" method="_on_player_hp_changed"]
