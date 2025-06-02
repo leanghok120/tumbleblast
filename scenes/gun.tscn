@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://kj0e6pidvuas"]
+
+[ext_resource type="Texture2D" uid="uid://dkcxd43ut7xg1" path="res://assets/guns.png" id="1_x77fm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_og67c"]
+radius = 62.0
+
+[node name="Gun" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_og67c")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Marker2D"]
+position = Vector2(22.25, -1.875)
+scale = Vector2(1.25, 1.375)
+texture = ExtResource("1_x77fm")
+region_enabled = true
+region_rect = Rect2(0, 115.759, 14.0245, 10.7952)
+
+[node name="Marker2D" type="Marker2D" parent="Marker2D/Sprite2D"]
+position = Vector2(5.6, -0.294118)
