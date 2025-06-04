@@ -1,24 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://kj0e6pidvuas"]
+[gd_scene load_steps=5 format=3 uid="uid://kj0e6pidvuas"]
 
+[ext_resource type="Script" uid="uid://bw8j7cw7fri06" path="res://scripts/gun.gd" id="1_og67c"]
 [ext_resource type="Texture2D" uid="uid://dkcxd43ut7xg1" path="res://assets/guns.png" id="1_x77fm"]
+[ext_resource type="PackedScene" uid="uid://b2bbffj65xecj" path="res://scenes/bullet.tscn" id="3_gp1hk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_og67c"]
-radius = 62.0
+radius = 161.028
 
 [node name="Gun" type="Area2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_og67c")
+bullet_scene = ExtResource("3_gp1hk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="range" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_og67c")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Marker2D"]
-position = Vector2(22.25, -1.875)
+position = Vector2(27, 2)
 scale = Vector2(1.25, 1.375)
 texture = ExtResource("1_x77fm")
 region_enabled = true
 region_rect = Rect2(0, 115.759, 14.0245, 10.7952)
 
-[node name="Marker2D" type="Marker2D" parent="Marker2D/Sprite2D"]
+[node name="muzzle" type="Marker2D" parent="Marker2D/Sprite2D"]
+unique_name_in_owner = true
 position = Vector2(5.6, -0.294118)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
