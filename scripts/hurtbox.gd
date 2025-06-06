@@ -10,9 +10,11 @@ signal hurt(damage)
 func _on_area_entered(area: Area2D) -> void:
 	if not area.is_in_group("attack"):
 		return
+	if area.is_in_group("bullet"):
+		area.get_parent().queue_free()
 	if area.get("damage") == null:
 		return
-	
+
 	match HurtboxType:
 		0: # cooldown
 			collision_shape.call_deferred("set", "disabled", true)
@@ -23,7 +25,6 @@ func _on_area_entered(area: Area2D) -> void:
 			if area.has_method("tempdisable"):
 				area.tempdisable()
 	emit_signal("hurt", area.damage)
-
 
 func _on_disabled_timer_timeout() -> void:
 	collision_shape.call_deferred_thread_group("set", "disabled", false)

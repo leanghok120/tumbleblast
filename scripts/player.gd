@@ -23,7 +23,7 @@ func movement():
 func _on_hurtbox_hurt(damage: Variant) -> void:
 	hp -= damage
 	emit_signal("hp_changed")
-	if hp == 0:
+	if hp <= 0:
 		hp = max_hp
 
 # play the player's animations
